@@ -1,4 +1,4 @@
-# imdb_clone
+# imdbclone
 
 Live Link : https://shayannoor.github.io/imdb_clone/index.html
 
