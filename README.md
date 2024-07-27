@@ -1,4 +1,4 @@
-# imdbclone
+# MovieDatabase
 
 Live Link : [https://shayannoor.github.io/MovieDatabase/]
 
