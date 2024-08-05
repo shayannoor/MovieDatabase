@@ -1,10 +1,9 @@
-// Title : http://www.omdbapi.com/?apikey=f9d55ac1&t=avatar
-// Search-result : https://www.omdbapi.com/?apikey=f9d55ac1&s=avatar&page=1
-
 const searchBox = document.getElementById('search-box');
 const searchList = document.getElementById('search-list');
 const result = document.getElementById('result');
-const addToFavourites = document.querySelector('#add-to-fav');
+const addToFavourites = document.getElementById('add-to-fav');
+
+let favMovieInLocal = JSON.parse(localStorage.getItem('favMoviesArray')) || [];
 
 // Function to find movies
 function findMovies() {
@@ -32,10 +31,7 @@ function displayMovieList(movies) {
         let listItem = document.createElement('div');
         listItem.dataset.id = movies[i].imdbID; // setting movie id in  data-id
         listItem.classList.add('search-list-item');
-        if (movies[i].Poster != "N/A")
-            moviePoster = movies[i].Poster;
-        else
-            moviePoster = "assets/image_not_found.png";
+        let moviePoster = movies[i].Poster != "N/A" ? movies[i].Poster : "assets/image_not_found.png";
 
         listItem.innerHTML = `
         <div class = "thumbnail">
@@ -88,23 +84,19 @@ function displayMovieDetails(details) {
     `;
 }
 
-const favMovieInLocal = [];
-
-addToFavourites.addEventListener('click', function(){
-    console.log('Added');
-    let i = 0;
+addToFavourites.addEventListener('click', function() {
     const favMovieTitle = document.querySelector('.movie-title').innerText;
-    const favMoviePoster = document.querySelector('.movie-poster').src; 
+    const favMoviePoster = document.querySelector('.movie-poster').src;
     const favMovie = {
         title: favMovieTitle,
         poster: favMoviePoster
     }
     favMovieInLocal.push(favMovie);
     localStorage.setItem('favMoviesArray', JSON.stringify(favMovieInLocal));
+    alert(`${favMovieTitle} added to favourites!`);
 });
 
-
-// event listener which gets activated on clicking search box
+// Event listener which gets activated on clicking outside the search box
 window.addEventListener('click', (event) => {
     if (event.target.className != "searchBox") {
         searchList.classList.add('hide-search-list');
