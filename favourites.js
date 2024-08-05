@@ -1,17 +1,23 @@
-const wrapper = document.getElementById('wrapper');
+const wrapper = document.querySelector('.wrapper');
 
-const favMovie = JSON.parse(localStorage.getItem('favMoviesArray'));
+document.addEventListener('DOMContentLoaded', addMovieToFavouritePage);
 
 function addMovieToFavouritePage() {
-    
-    for (let i = 0; i < favMovie.length; i++) {
-        let poster = favMovie[i].poster;
-        let movieCard = document.createElement('div');
-        movieCard.classList.add('movie-card');
-        movieCard.innerHTML = `<img class="poster" src=${poster}>`;
-        wrapper.appendChild(movieCard);
-    }
+    let favMovies = JSON.parse(localStorage.getItem('favMoviesArray')) || [];
 
+    favMovies.forEach(movie => {
+        let favItem = document.createElement('div');
+        favItem.classList.add('fav-movie-item');
+
+        favItem.innerHTML = `
+        <div class="fav-movie-poster">
+            <img src="${movie.poster}" alt="movie poster">
+        </div>
+        <div class="fav-movie-info">
+            <h3>${movie.title}</h3>
+        </div>
+        `;
+
+        wrapper.appendChild(favItem);
+    });
 }
-
-addMovieToFavouritePage();
